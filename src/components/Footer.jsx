@@ -9,9 +9,11 @@ const Footer = () => {
 
                     {/* Brand Info */}
                     <div>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '1rem', color: 'var(--white)' }}>
-                            <span style={{ color: 'var(--primary)' }}>Round</span> Tummy
-                        </h3>
+                        <img 
+                            src="/src/assets/round_tummy_hospitality_logo_transparent_hd.png" 
+                            alt="Round Tummy Logo" 
+                            style={{ height: '100px', width: 'auto', marginBottom: '1rem', filter: 'brightness(0) invert(1)', transform: 'translateY(-10px)' }}
+                        />
                         <p style={{ color: '#9CA3AF', marginBottom: '1.5rem' }}>
                             Your trusted food & hospitality partner for corporates & institutions. Fresh, hygienic, and customizable food solutions.
                         </p>

@@ -26,7 +26,7 @@ const Brands = () => {
             name: 'VDP (Veerji De Paranthe)',
             type: 'Cloud Kitchen',
             desc: 'A delivery brand loved for its stuffed, flavour-packed North Indian parathas.',
-            tagline: '“Mann bharke fillings, jee bharke pyaar.”',
+            tagline: '"Mann bharke fillings, jee bharke pyaar."',
             features: [],
             icon: <Truck size={40} />,
             color: '#F44336'
@@ -43,125 +43,95 @@ const Brands = () => {
     ];
 
     return (
-        <section id="brands" className="section" style={{ backgroundColor: '#F3F4F6' }}>
-            <div className="container">
-                <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <span style={{ color: 'var(--primary)', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '0.5rem', display: 'block' }}>Our Services</span>
-                    <h2 className="heading-lg">Our Brands</h2>
-                    <p className="text-lead" style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <section id="brands" className="bg-white py-12 sm:py-12 lg:py-15">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12 sm:mb-16">
+                    <span className="text-orange-600 font-semibold text-sm sm:text-base tracking-wide uppercase block mb-2">
+                        Our Services
+                    </span>
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                        Our Brands
+                    </h2>
+                    <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
                         Diverse food solutions tailored for every need.
                     </p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between' }} className="brands-container">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                     {brands.map((brand) => (
-                        <div key={brand.id} style={{
-                            backgroundColor: 'var(--white)',
-                            borderRadius: '1rem',
-                            overflow: 'hidden',
-                            boxShadow: '0 4px 12px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03)',
-                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            border: '1px solid rgba(0,0,0,0.05)',
-                            flex: '1',
-                            maxWidth: '280px'
-                        }}
-                            className="brand-card"
+                        <div
+                            key={brand.id}
+                            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:-translate-y-2 overflow-hidden border border-gray-100"
                         >
-                            <div style={{ padding: '1.5rem', flex: 1, position: 'relative' }}>
-                                <div style={{
-                                    display: 'inline-flex',
-                                    padding: '0.875rem',
-                                    backgroundColor: `${brand.color}15`,
-                                    color: brand.color,
-                                    borderRadius: '0.875rem',
-                                    marginBottom: '1rem',
-                                    boxShadow: `0 4px 8px ${brand.color}20`,
-                                    position: 'relative',
-                                    overflow: 'hidden'
-                                }}
-                                className="brand-icon"
+                            <div className="p-4 sm:p-5 relative">
+                                {/* Icon with gradient background */}
+                                <div
+                                    className="inline-flex p-3 sm:p-4 rounded-xl mb-4 relative overflow-hidden transition-transform duration-300 group-hover:scale-105 group-hover:rotate-3"
+                                    style={{
+                                        backgroundColor: `${brand.color}15`,
+                                        color: brand.color,
+                                        boxShadow: `0 6px 12px ${brand.color}20`
+                                    }}
                                 >
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: '50%',
-                                        left: '50%',
-                                        transform: 'translate(-50%, -50%)',
-                                        width: '40px',
-                                        height: '40px',
-                                        backgroundColor: `${brand.color}08`,
-                                        borderRadius: '50%',
-                                        filter: 'blur(12px)'
-                                    }} />
-                                    {React.cloneElement(brand.icon, { size: 32 })}
+                                    <div
+                                        className="absolute top-1/2 left-1/2 w-10 h-10 rounded-full opacity-60 blur-xl"
+                                        style={{
+                                            backgroundColor: `${brand.color}08`,
+                                            transform: 'translate(-50%, -50%)'
+                                        }}
+                                    />
+                                    {React.cloneElement(brand.icon, { size: 28, className: "relative z-10" })}
                                 </div>
-                                <h3 className="heading-md" style={{ marginBottom: '0.375rem', fontSize: '1.375rem', fontWeight: '700', color: 'var(--text-dark)' }}>{brand.name}</h3>
-                                <p style={{ color: brand.color, fontWeight: '600', fontSize: '0.75rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{brand.type}</p>
-                                <p style={{ color: 'var(--text-light)', marginBottom: '1rem', lineHeight: '1.5', fontSize: '0.875rem' }}>{brand.desc}</p>
 
+                                {/* Brand name */}
+                                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">
+                                    {brand.name}
+                                </h3>
+
+                                {/* Brand type */}
+                                <p
+                                    className="text-xs font-semibold uppercase tracking-wide mb-3"
+                                    style={{ color: brand.color }}
+                                >
+                                    {brand.type}
+                                </p>
+
+                                {/* Description */}
+                                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                                    {brand.desc}
+                                </p>
+
+                                {/* Tagline */}
                                 {brand.tagline && (
-                                    <p style={{ fontStyle: 'italic', color: 'var(--text-dark)', marginBottom: '1rem', fontWeight: '500', borderLeft: `3px solid ${brand.color}`, paddingLeft: '0.75rem', fontSize: '0.85rem' }}>{brand.tagline}</p>
+                                    <blockquote
+                                        className="text-xs italic text-gray-700 mb-3 font-medium pl-2 border-l-2"
+                                        style={{ borderColor: brand.color }}
+                                    >
+                                        {brand.tagline}
+                                    </blockquote>
                                 )}
 
+                                {/* Features */}
                                 {brand.features.length > 0 && (
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: 'auto' }}>
+                                    <div className="flex flex-wrap gap-1.5 mt-auto">
                                         {brand.features.map((feat, i) => (
-                                            <span key={i} style={{
-                                                fontSize: '0.7rem',
-                                                padding: '0.325rem 0.75rem',
-                                                backgroundColor: 'linear-gradient(135deg, #F9FAFB, #F3F4F6)',
-                                                borderRadius: '9999px',
-                                                color: 'var(--text-dark)',
-                                                border: '1px solid #E5E7EB',
-                                                fontWeight: '600',
-                                                boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                                                transition: 'all 0.2s ease'
-                                            }}>
+                                            <span
+                                                key={i}
+                                                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-linear-to-r from-gray-50 to-gray-100 text-gray-700 border border-gray-200 shadow-sm transition-all duration-200 hover:shadow-md hover:border-gray-300"
+                                            >
                                                 {feat}
                                             </span>
                                         ))}
                                     </div>
                                 )}
                             </div>
+
+                            {/* Hover effect overlay */}
+                            <div className="absolute inset-0 bg-linear-to-t from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                         </div>
                     ))}
                 </div>
             </div>
-            <style>{`
-        .brand-card {
-          position: relative;
-        }
-        .brand-card:hover {
-          transform: translateY(-4px) scale(1.01);
-          box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.1), 0 8px 12px -4px rgba(0, 0, 0, 0.06) !important;
-        }
-        .brand-card:hover .brand-icon {
-          transform: scale(1.05) rotate(3deg);
-        }
-        .brand-icon {
-          transition: all 0.3s ease;
-        }
-        @media (max-width: 1024px) {
-          .brands-container {
-            flex-wrap: wrap;
-            justify-content: center;
-          }
-          .brand-card {
-            maxWidth: '240px';
-            minWidth: '220px';
-          }
-        }
-        @media (max-width: 768px) {
-          .brands-container {
-            gap: '0.75rem';
-            flex-direction: column;
-          }
-          .brand-card {
-            maxWidth: '100%';
-          }
-        }
-      `}</style>
         </section>
     );
 };

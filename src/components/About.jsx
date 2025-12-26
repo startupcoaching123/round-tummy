@@ -3,12 +3,12 @@ import { Target, Eye, Heart, CheckCircle } from 'lucide-react';
 
 const AboutSection = () => {
     const features = [
-        "Customizable Menus",
-        "FSSAI Certified Kitchens",
-        "On-Time Delivery",
-        "Sustainable Practices",
-        "Dietary Accommodations",
-        "24/7 Support"
+        "Fresh, daily-cooked meals",
+        "Multi-cuisine menus for all tastes",
+        "High hygiene and safety standards",
+        "Quick service for busy workplaces",
+        "Complete cafeteria setup and management",
+        "Affordable and flexible food plans"
     ];
 
     return (

@@ -44,13 +44,17 @@ const Navbar = () => {
         transition: 'all 0.3s ease',
         backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
         boxShadow: scrolled ? 'var(--shadow-sm)' : 'none',
-        padding: scrolled ? '1rem 0' : '1.5rem 0',
+        padding: scrolled ? '0.15rem 0' : '0.2rem 0',
         backdropFilter: scrolled ? 'blur(10px)' : 'none',
       }}
     >
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Link to="/" style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <span style={{ color: 'var(--secondary)' }}>Round</span> Tummy
+        <Link to="/" style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
+          <img 
+            src="/src/assets/round_tummy_hospitality_logo_transparent_hd.png" 
+            alt="Round Tummy Logo" 
+            style={{ height: '80px', width: 'auto' }}
+          />
         </Link>
 
         {/* Desktop Menu */}
@@ -98,23 +102,28 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            width: '100%',
-            backgroundColor: 'var(--white)',
-            padding: '2rem',
-            boxShadow: 'var(--shadow-lg)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1.5rem',
-            alignItems: 'center'
-          }}
-        >
-          {navLinks.map((link) => (
+      <div
+        className={`mobile-menu ${isOpen ? 'open' : ''}`}
+        style={{
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          width: '100%',
+          backgroundColor: 'var(--white)',
+          padding: isOpen ? '2rem' : '0',
+          boxShadow: isOpen ? 'var(--shadow-lg)' : 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.5rem',
+          alignItems: 'center',
+          maxHeight: isOpen ? '500px' : '0',
+          opacity: isOpen ? 1 : 0,
+          overflow: 'hidden',
+          transition: 'all 0.3s ease-in-out',
+          transform: isOpen ? 'translateY(0)' : 'translateY(-10px)'
+        }}
+      >
+          {navLinks.map((link, index) => (
             <Link
               key={link.name}
               to={link.path}
@@ -122,17 +131,28 @@ const Navbar = () => {
               style={{
                 fontSize: '1.125rem',
                 fontWeight: '500',
-                color: isActive(link.path) ? 'var(--primary)' : 'var(--text-dark)'
+                color: isActive(link.path) ? 'var(--primary)' : 'var(--text-dark)',
+                transform: isOpen ? 'translateY(0)' : 'translateY(-20px)',
+                opacity: isOpen ? 1 : 0,
+                transition: `all 0.3s ease-in-out ${index * 0.1}s`
               }}
             >
               {link.name}
             </Link>
           ))}
-          <Link to="/contact" className="btn btn-primary" onClick={() => setIsOpen(false)}>
+          <Link 
+            to="/contact" 
+            className="btn btn-primary" 
+            onClick={() => setIsOpen(false)}
+            style={{
+              transform: isOpen ? 'translateY(0)' : 'translateY(-20px)',
+              opacity: isOpen ? 1 : 0,
+              transition: `all 0.3s ease-in-out ${navLinks.length * 0.1}s`
+            }}
+          >
             Get in Touch
           </Link>
         </div>
-      )}
 
       <style>{`
         @media (min-width: 768px) {

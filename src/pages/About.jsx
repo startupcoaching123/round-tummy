@@ -1,149 +1,306 @@
-import React from 'react';
-import AboutSection from '../components/About';
-import PageHeader from '../components/PageHeader';
+'use client';
 
-// --- Team Member Data ---
+import React from 'react';
+import { motion } from 'framer-motion';
+import { 
+  Quote, 
+  Target, 
+  Flag, 
+  CheckCircle2, 
+  ShieldCheck,
+  Flame,
+  Users,
+  Leaf,
+  ArrowRight,
+  Utensils
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+// --- Data ---
 const teamMembers = [
   {
     name: "Vanshul",
-    role: "Director & Founder",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-    description: "Visionary leader with 10+ years in hospitality industry, passionate about creating exceptional dining experiences."
+    role: "Director",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+    description: "Visionary leader with 10+ years in hospitality. Passionate about sourcing fresh ingredients and driving innovation."
   },
   {
     name: "Anurag",
-    role: "Director & Co-Founder", 
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-    description: "Strategic thinker focused on operational excellence and customer satisfaction in food service."
-  },
-  {
-    name: "Priya Sharma",
-    role: "Head Chef",
-    image: "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description: "Culinary expert with international experience, specializing in fusion cuisine and innovative recipes."
-  },
-  {
-    name: "Raj Kumar",
-    role: "Operations Manager",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-    description: "Operations specialist ensuring smooth delivery and quality control across all service areas."
+    role: "Director", 
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80",
+    description: "Strategic thinker focused on operational excellence. Ensures seamless delivery and uncompromising quality."
   }
 ];
 
-// --- Internal Team Component ---
-const TeamSection = () => {
-  return (
-    <section className="relative py-20 px-4 bg-gray-50 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gray-100 rounded-full opacity-20"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-gray-100 rounded-full opacity-20"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-gray-100 rounded-full opacity-20"></div>
-      </div>
-      
-      <div className="relative max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
-              <span className="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
-              Our Leadership Team
-            </div>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Meet The <span className="text-gray-800">Visionaries</span> Behind Round Tummy
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Leading with passion, purpose, and a love for exceptional food. 
-            We are dedicated to crafting the best culinary experiences that bring joy to every meal.
-          </p>
-          <div className="flex items-center justify-center space-x-4">
-            <div className="h-px bg-gray-300 w-20"></div>
-            <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-            <div className="h-px bg-gray-300 w-20"></div>
-          </div>
-        </div>
+const missionPoints = [
+  "Maintaining strong hygiene and safety",
+  "Offering variety through experienced chefs",
+  "Delivering meals on time",
+  "Supporting health, energy, and satisfaction",
+  "Building long-term partnerships based on trust"
+];
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {teamMembers.map((member, index) => (
-            <div 
-              key={index} 
-              className="group relative"
-            >
-              {/* Card with minimal design */}
-              <div className="relative bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
-                <div className="p-6 relative z-10">
-                  {/* Modern Image Container with B&W to color effect */}
-                  <div className="relative mb-6 group/image">
-                    <div className="relative w-32 h-32 mx-auto overflow-hidden rounded-2xl">
-                      <img 
-                        src={member.image} 
-                        alt={member.name} 
-                        className="w-full h-full object-cover transition-all duration-500 ease-in-out filter grayscale group-hover/image:grayscale-0 scale-110 group-hover/image:scale-100"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                  </div>
-
-                  {/* Enhanced Text Info */}
-                  <h3 className="text-xl font-bold text-gray-900 text-center mb-2">
-                    {member.name}
-                  </h3>
-                  <div className="flex items-center px-3 py-1 bg-[#FFF7ED] text-gray-700 rounded-full text-sm font-medium mb-4 mx-auto w-fit">
-                    {member.role}
-                  </div>
-                  
-                  {/* Description */}
-                  <p className="text-gray-600 text-sm text-center leading-relaxed mb-6">
-                    {member.description}
-                  </p>
-                  
-                  {/* Minimal Social Icons */}
-                  <div className="flex justify-center space-x-2">
-                    <button className="w-8 h-8 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors duration-200">
-                      <span className="sr-only">LinkedIn</span>
-                      <svg fill="currentColor" viewBox="0 0 24 24" className="w-4 h-4">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                      </svg>
-                    </button>
-                    <button className="w-8 h-8 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors duration-200">
-                      <span className="sr-only">Email</span>
-                      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Bottom decorative element */}
-        <div className="flex items-center justify-center">
-          <div className="h-px bg-gray-300 w-full max-w-md"></div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// --- Main Page Component ---
 const About = () => {
+  const navigate = useNavigate();
+
   return (
-    <>
-      <PageHeader
-        title="About Us"
-        subtitle="We create meal solutions that match different tastes, budgets, and needs — simple, reliable, and made to fit your routine."
-        backgroundImage="/about-bg.png"
-      />
+    <div className="min-h-screen bg-white text-gray-800 font-sans selection:bg-orange-100 selection:text-orange-800">
       
-      <AboutSection />
-      
-      <TeamSection />
-    </>
+      {/* ================= 1. SIMPLE HERO SECTION ================= */}
+      <section className="relative pt-32 pb-4 px-6 md:px-12 bg-linear-to-br from-green-50 via-white to-orange-50/30 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-green-200/20 rounded-full blur-2xl"></div>
+        <div className="absolute top-20 right-20 w-48 h-48 bg-orange-200/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-green-100/30 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-green-200 text-green-700 text-xs font-bold tracking-widest uppercase mb-8 shadow-lg"
+          >
+            <Leaf className="w-3 h-3" />
+            About Us
+          </motion.div>
+          
+        
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="relative mb-8"
+          >
+            <div className="absolute inset-0 bg-linear-to-r from-green-600/10 to-orange-500/10 blur-3xl transform scale-110"></div>
+            <motion.h2 
+              className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight leading-tight relative"
+            >
+              Nourishing your <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-green-600 via-orange-500 to-red-500">
+                work, life, and routine.
+              </span>
+            </motion.h2>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="max-w-3xl mx-auto"
+          >
+            <p className="text-xl text-gray-600 leading-relaxed font-light">
+              We create meal solutions that match different tastes, budgets, and needs — simple, reliable, and made to fit your routine.
+            </p>
+            
+            {/* Stats badges */}
+            <div className="flex flex-wrap justify-center gap-6 mt-12">
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/60 backdrop-blur-sm px-6 py-3 rounded-2xl border border-green-200 shadow-md"
+              >
+                <div className="text-2xl font-bold text-green-700">8+</div>
+                <div className="text-sm text-gray-600">Years Experience</div>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/60 backdrop-blur-sm px-6 py-3 rounded-2xl border border-orange-200 shadow-md"
+              >
+                <div className="text-2xl font-bold text-orange-600">6+</div>
+                <div className="text-sm text-gray-600">Corporate Hubs</div>
+              </motion.div>
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                className="bg-white/60 backdrop-blur-sm px-6 py-3 rounded-2xl border border-green-200 shadow-md"
+              >
+                <div className="text-2xl font-bold text-green-700">10k+</div>
+                <div className="text-sm text-gray-600">Daily Meals</div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ================= 2. WHO WE ARE & MOTTO ================= */}
+      <section className="py-16 px-6 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left: Who We Are Content */}
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              Who We Are
+              <span className="h-px w-12 bg-orange-400 block"></span>
+            </h2>
+            <p className="text-gray-600 text-lg leading-relaxed mb-6">
+              Round Tummy Hospitality provides complete food services for corporates, schools, institutes, and individuals. 
+            </p>
+            <p className="text-gray-600 text-lg leading-relaxed">
+              We create meal solutions that match different tastes, budgets, and needs — simple, reliable, and made to fit your routine.
+            </p>
+          </div>
+
+          {/* Right: The Motto Box */}
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="bg-orange-50 p-8 md:p-10 rounded-2xl border border-orange-100 relative"
+          >
+            <Quote className="w-10 h-10 text-orange-300 absolute top-6 right-6" />
+            
+            <span className="text-orange-600 font-bold uppercase tracking-wider text-xs mb-3 block">Our Motto</span>
+            <h3 className="text-2xl md:text-3xl font-serif italic text-gray-900 mb-4 leading-snug">
+              “We only serve what we <span className="text-orange-600">eat ourselves</span>.”
+            </h3>
+            <div className="flex items-center gap-2 text-gray-700 font-medium border-t border-orange-200 pt-4 mt-2">
+              <CheckCircle2 className="w-5 h-5 text-green-600" />
+              Clean, tasty, and safe food is our everyday promise.
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+      {/* ================= 3. VISION & MISSION GRID ================= */}
+     {/* ================= 3. THE MOTTO (Dark Green Break) ================= */}
+      <section className="py-20 bg-green-600 text-black relative overflow-hidden">
+        {/* Texture */}
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+        
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <Quote className="w-12 h-12 text-orange-400 mx-auto mb-6 opacity-90" />
+          <h3 className="text-3xl md:text-5xl font-serif italic leading-snug mb-6">
+            "We only serve what we <span className="text-orange-400 border-b-2 border-orange-400">eat ourselves</span>."
+          </h3>
+          <div className="inline-flex items-center gap-2 text-green-200 text-lg">
+             <ShieldCheck className="w-5 h-5" />
+             <span>Clean, Tasty, and Safe.</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= 4. VISION & MISSION ================= */}
+      <section className="py-24 px-6 md:px-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Vision Card - Green Theme */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white p-10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-green-100 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-bl-[100px] transition-transform group-hover:scale-150 duration-500"></div>
+              
+              <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-6 relative z-10 rotate-3 group-hover:rotate-12 transition-transform">
+                <Target className="w-7 h-7 text-green-700" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 relative z-10">Our Vision</h3>
+              <p className="text-gray-600 leading-relaxed relative z-10">
+                To be the most preferred food partner, creating a healthier society by blending authentic <span className="text-green-700 font-semibold">green values</span> with professional service.
+              </p>
+            </motion.div>
+
+            {/* Mission Card - Orange Theme */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white p-10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-orange-100 relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-[100px] transition-transform group-hover:scale-150 duration-500"></div>
+              
+              <div className="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 relative z-10 -rotate-3 group-hover:-rotate-12 transition-transform">
+                <Flame className="w-7 h-7 text-orange-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 relative z-10">Our Mission</h3>
+              <p className="text-gray-600 leading-relaxed relative z-10">
+                To consistently deliver hygienic, nutritious, and delicious meals while fueling the workforce with <span className="text-orange-600 font-semibold">warm energy</span> and reliability.
+              </p>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ================= 5. TEAM SECTION ================= */}
+      <section className="py-24 px-6 md:px-12 lg:px-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          
+          <div className="mb-16 text-center">
+             <div className="inline-block border-b-2 border-green-500 pb-2 mb-4">
+                <span className="text-sm font-bold tracking-widest text-gray-900 uppercase">Leadership</span>
+             </div>
+             <h2 className="text-4xl md:text-5xl font-black text-gray-900">MEET THE FOUNDERS</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+            {teamMembers.map((member, index) => (
+              <TeamCard key={index} member={member} index={index} />
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= 6. CTA / FOOTER ================= */}
+      <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto text-center px-6">
+          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-green-100 to-orange-100 rounded-full flex items-center justify-center mb-8">
+            <Utensils className="w-8 h-8 text-green-700" />
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+            Ready to taste the <span className="text-green-600">freshness?</span>
+          </h2>
+          <p className="text-gray-500 mb-10 max-w-xl mx-auto text-lg">
+            Whether it's a corporate lunch or a cafeteria takeover, we bring the best flavors to your table.
+          </p>
+          <button 
+            onClick={() => navigate('/contact')}
+            className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white transition-all duration-200 bg-green-600 rounded-full hover:bg-orange-500 hover:shadow-xl hover:shadow-orange-500/20"
+          >
+             <span>Get in Touch</span>
+             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </section>
+
+    </div>
   );
 };
 
+// --- Helper Components ---
+
+const TeamCard = ({ member, index }) => {
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.2 }}
+      className="flex flex-col md:flex-row gap-8 items-center md:items-start group"
+    >
+      <div className="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-lg relative">
+        <div className="absolute inset-0 bg-green-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+        <img 
+          src={member.image} 
+          alt={member.name}
+          className="w-full h-full object-cover aspect-[4/5] transform group-hover:scale-105 transition-all duration-700"
+        />
+      </div>
+      
+      <div className="w-full md:w-1/2 text-center md:text-left pt-4">
+        <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-lg text-xs font-bold tracking-wider uppercase mb-4 inline-block">
+          {member.role}
+        </span>
+        <h3 className="text-3xl font-bold text-gray-900 mb-4 group-hover:text-green-700 transition-colors">
+          {member.name}
+        </h3>
+        <p className="text-gray-500 leading-relaxed text-lg">
+          {member.description}
+        </p>
+        
+        <div className="mt-6 flex justify-center md:justify-start gap-4">
+          <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600 hover:bg-green-600 hover:text-white transition-all cursor-pointer">
+            <Users className="w-4 h-4" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 export default About;

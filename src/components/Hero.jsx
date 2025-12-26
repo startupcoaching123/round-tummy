@@ -83,7 +83,7 @@ const Hero = () => {
                     <div style={{ marginTop: '3rem', display: 'flex', gap: '2rem' }}>
                         <div>
                             <h4 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-dark)' }}>10k+</h4>
-                            <p style={{ color: 'var(--text-light)', fontSize: '0.875rem' }}>Daily Meals</p>
+                            <p style={{ color: 'var(--text-light)', fontSize: '0.875rem' }}>Users</p>
                         </div>
                         <div>
                             <h4 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-dark)' }}>6+</h4>
@@ -150,6 +150,21 @@ const Hero = () => {
           0% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
           100% { transform: translateY(0px); }
+        }
+        
+        @media (max-width: 768px) {
+          .hero-section .container {
+            flex-direction: column !important;
+          }
+          
+          .hero-section .container > div:last-child {
+            order: 2 !important;
+            margin-top: 2rem;
+          }
+          
+          .hero-section .container > div:first-child {
+            order: 1 !important;
+          }
         }
       `}</style>
         </section>
