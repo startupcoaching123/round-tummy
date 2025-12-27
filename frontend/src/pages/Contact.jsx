@@ -2,38 +2,98 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Send, 
-  MessageSquare, 
-  ArrowRight,
-  Clock
-} from 'lucide-react';
+import { Phone, Mail, MapPin, Send, MessageSquare, Clock, CheckCircle, XCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formState, setFormState] = useState({
     name: '',
     email: '',
     phone: '',
-    subject: 'General Inquiry',
     message: ''
   });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState({ type: '', text: '' });
 
-  const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
+
+    if (!formState.name.trim()) newErrors.name = 'Name is required.';
+    if (!formState.email.trim()) {
+      newErrors.email = 'Email is required.';
+    } else if (!emailRegex.test(formState.email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+    if (!formState.phone.trim()) {
+      newErrors.phone = 'Phone number is required.';
+    } else if (!phoneRegex.test(formState.phone)) {
+      newErrors.phone = 'Phone number must be exactly 10 digits.';
+    }
+    if (!formState.message.trim()) newErrors.message = 'Message is required.';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    // For phone field, only allow numbers and limit to 10 characters
+    if (name === 'phone') {
+      const numbersOnly = value.replace(/\D/g, '');
+      if (numbersOnly.length <= 10) {
+        setFormState(prev => ({ ...prev, [name]: numbersOnly }));
+      }
+    } else {
+      setFormState(prev => ({ ...prev, [name]: value }));
+    }
+    
+    // Clear error for the field being edited
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formState);
+    setSubmitMessage({ type: '', text: '' });
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage({ type: 'success', text: data.message || 'Message sent successfully!' });
+        // Clear form
+        setFormState({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setSubmitMessage({ type: 'error', text: data.error || 'Something went wrong.' });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitMessage({ type: 'error', text: 'Network error. Please check if the backend is running.' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-green-100 selection:text-green-800">
-      
       {/* ================= 1. HERO SECTION ================= */}
       <section className="relative pt-32 pb-20 px-6 md:px-12 bg-gradient-to-b from-green-50/60 to-white overflow-hidden">
         {/* Decorative elements */}
@@ -147,7 +207,7 @@ const Contact = () => {
               </div>
             </motion.div>
 
-            {/* RIGHT: The Form */}
+            {/* RIGHT: The Form - Only name, email, phone, message */}
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -157,6 +217,14 @@ const Contact = () => {
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
               
+              {/* Success/Error Message */}
+              {submitMessage.text && (
+                <div className={`mb-6 p-4 rounded-xl flex items-start gap-3 ${submitMessage.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                  {submitMessage.type === 'success' ? <CheckCircle className="w-5 h-5 mt-0.5" /> : <XCircle className="w-5 h-5 mt-0.5" />}
+                  <span className="font-medium">{submitMessage.text}</span>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <InputField 
@@ -164,14 +232,18 @@ const Contact = () => {
                     name="name" 
                     placeholder="John Doe" 
                     value={formState.name} 
-                    onChange={handleChange} 
+                    onChange={handleChange}
+                    error={errors.name}
+                    required
                   />
                   <InputField 
                     label="Phone Number" 
                     name="phone" 
-                    placeholder="+91 98765..." 
+                    placeholder="9876543210" 
                     value={formState.phone} 
-                    onChange={handleChange} 
+                    onChange={handleChange}
+                    error={errors.phone}
+                    required
                   />
                 </div>
 
@@ -181,48 +253,52 @@ const Contact = () => {
                   type="email" 
                   placeholder="john@company.com" 
                   value={formState.email} 
-                  onChange={handleChange} 
+                  onChange={handleChange}
+                  error={errors.email}
+                  required
                 />
 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 ml-1">Looking for?</label>
-                  <div className="flex flex-wrap gap-3">
-                    {['Corporate Catering', 'Event Bulk Order', 'Individual Meal Plan', 'Other'].map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => setFormState({...formState, subject: option})}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                          formState.subject === option 
-                          ? 'bg-green-600 text-white shadow-md shadow-green-200' 
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 ml-1">Message</label>
+                  <label className="text-sm font-semibold text-gray-700 ml-1">
+                    Message <span className="text-red-500">*</span>
+                  </label>
                   <textarea 
                     name="message"
                     rows="4"
-                    className="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-green-500 focus:bg-white outline-none transition-all resize-none text-gray-800 placeholder-gray-400"
+                    className={`w-full px-5 py-4 rounded-2xl border-2 bg-gray-50 focus:bg-white outline-none transition-all resize-none text-gray-800 placeholder-gray-400 ${
+                      errors.message 
+                      ? 'border-red-300 focus:border-red-500' 
+                      : 'border-transparent focus:border-green-500'
+                    }`}
                     placeholder="Tell us about your requirements..."
                     value={formState.message}
                     onChange={handleChange}
+                    required
                   />
+                  {errors.message && <p className="text-sm text-red-600 ml-1">{errors.message}</p>}
                 </div>
 
                 <button 
                   type="submit"
-                  className="w-full group relative flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-green-500/30"
+                  disabled={isLoading}
+                  className="w-full group relative flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-green-500/30 disabled:opacity-70 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  Send Message
-                  <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  {isLoading ? (
+                    <>
+                      <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></span>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </>
+                  )}
                 </button>
+                
+                <p className="text-xs text-gray-500 text-center mt-4">
+                  By submitting this form, you agree to our privacy policy.
+                </p>
               </form>
             </motion.div>
           </div>
@@ -230,7 +306,7 @@ const Contact = () => {
       </section>
 
       {/* ================= 3. MAP SECTION ================= */}
-      <section className="h-96 rounded-4xl   w-full relative overflow-hidden">
+      <section className="h-96 rounded-4xl w-full relative overflow-hidden">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.741447835!2d77.0716!3d28.4595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19d582e3888f%3A0x2c5d5b5b5b5b5b5b!2sSector%2044%2C%20Gurgaon%2C%20Haryana%20122003!5e0!3m2!1sen!2sin!4v1234567890!5m2!1sen!2sin"
           width="100%"
@@ -243,7 +319,6 @@ const Contact = () => {
           className="w-full h-full"
         />
       </section>
-
     </div>
   );
 };
@@ -263,17 +338,25 @@ const ContactCard = ({ icon: Icon, title, info, subInfo, color, bgColor }) => (
   </div>
 );
 
-const InputField = ({ label, name, type = "text", placeholder, value, onChange }) => (
+const InputField = ({ label, name, type = "text", placeholder, value, onChange, error, required }) => (
   <div className="space-y-2">
-    <label className="text-sm font-semibold text-gray-700 ml-1">{label}</label>
+    <label className="text-sm font-semibold text-gray-700 ml-1">
+      {label} {required && <span className="text-red-500">*</span>}
+    </label>
     <input 
       type={type}
       name={name}
-      className="w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-green-500 focus:bg-white outline-none transition-all text-gray-800 placeholder-gray-400"
+      className={`w-full px-5 py-4 rounded-2xl bg-gray-50 border-2 transition-all text-gray-800 placeholder-gray-400 outline-none ${
+        error 
+        ? 'border-red-300 focus:border-red-500' 
+        : 'border-transparent focus:border-green-500 focus:bg-white'
+      }`}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      required={required}
     />
+    {error && <p className="text-sm text-red-600 ml-1">{error}</p>}
   </div>
 );
 
