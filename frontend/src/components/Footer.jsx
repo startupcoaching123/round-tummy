@@ -65,11 +65,11 @@ const Footer = () => {
                             </li>
                             <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#9CA3AF' }}>
                                 <Phone size={20} style={{ color: 'var(--primary)', flexShrink: 0 }} />
-                                <span>+91 98765 43210</span>
+                                <span>+91 99585 79259</span>
                             </li>
                             <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#9CA3AF' }}>
                                 <Mail size={20} style={{ color: 'var(--primary)', flexShrink: 0 }} />
-                                <span>hello@roundtummy.com</span>
+                                <span>hi@roundtummyhospitality.com</span>
                             </li>
                         </ul>
                     </div>
