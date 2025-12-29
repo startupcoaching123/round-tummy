@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Send, CheckCircle, XCircle } from 'lucide-react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Phone, Mail, MapPin, Send,MessageSquare, Clock, CheckCircle, XCircle } from 'lucide-react';
 
 const ContactSection = () => {
     const BACKENDURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
@@ -371,4 +372,4 @@ const InputField = ({ label, name, type = "text", placeholder, value, onChange, 
   </div>
 );
 
-export default Contact;
+export default ContactSection;
