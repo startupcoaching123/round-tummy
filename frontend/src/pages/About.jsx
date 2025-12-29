@@ -5,14 +5,13 @@ import { motion } from 'framer-motion';
 import { 
   Quote, 
   Target, 
-  Flag, 
-  CheckCircle2, 
-  ShieldCheck,
   Flame,
+  ShieldCheck,
   Users,
   Leaf,
   ArrowRight,
-  Utensils
+  Utensils,
+  User // Imported User icon for the person placeholder
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,14 +29,6 @@ const teamMembers = [
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80",
     description: "Strategic thinker focused on operational excellence. Ensures seamless delivery and uncompromising quality."
   }
-];
-
-const missionPoints = [
-  "Maintaining strong hygiene and safety",
-  "Offering variety through experienced chefs",
-  "Delivering meals on time",
-  "Supporting health, energy, and satisfaction",
-  "Building long-term partnerships based on trust"
 ];
 
 const About = () => {
@@ -63,8 +54,6 @@ const About = () => {
             About Us
           </motion.div>
           
-        
-
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -150,7 +139,7 @@ const About = () => {
               “We only serve what we <span className="text-orange-600">eat ourselves</span>.”
             </h3>
             <div className="flex items-center gap-2 text-gray-700 font-medium border-t border-orange-200 pt-4 mt-2">
-              <CheckCircle2 className="w-5 h-5 text-green-600" />
+              <ShieldCheck className="w-5 h-5 text-green-600" />
               Clean, tasty, and safe food is our everyday promise.
             </div>
           </motion.div>
@@ -158,8 +147,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* ================= 3. VISION & MISSION GRID ================= */}
-     {/* ================= 3. THE MOTTO (Dark Green Break) ================= */}
+      {/* ================= 3. THE MOTTO (Dark Green Break) ================= */}
       <section className="py-20 bg-green-600 text-black relative overflow-hidden">
         {/* Texture */}
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
@@ -274,13 +262,22 @@ const TeamCard = ({ member, index }) => {
       transition={{ delay: index * 0.2 }}
       className="flex flex-col md:flex-row gap-8 items-center md:items-start group"
     >
-      <div className="w-full md:w-1/2 overflow-hidden rounded-2xl shadow-lg relative">
+      {/* ----- MODIFIED IMAGE CONTAINER ----- */}
+      <div className="w-full md:w-1/2 rounded-2xl shadow-lg relative aspect-[4/5] bg-gray-100 flex items-center justify-center overflow-hidden">
+        
+        {/* Simple Person Icon Placeholder */}
+        <User className="w-32 h-32 text-gray-300" />
+
+        {/* ----- ORIGINAL IMAGE CODE (COMMENTED OUT) ----- */}
+        {/* Uncomment below block to restore photos */}
+        {/*
         <div className="absolute inset-0 bg-green-900/10 group-hover:bg-transparent transition-colors z-10"></div>
         <img 
           src={member.image} 
           alt={member.name}
           className="w-full h-full object-cover aspect-[4/5] transform group-hover:scale-105 transition-all duration-700"
-        />
+        /> 
+        */}
       </div>
       
       <div className="w-full md:w-1/2 text-center md:text-left pt-4">

@@ -204,7 +204,7 @@ const TimelineRow = ({ data, index }) => {
            viewport={{ once: true }}
            className="relative"
         >
-          <h2 className="text-8xl md:text-[120px] font-black text-gray-400 leading-none select-none transition-colors duration-500 group-hover:text-orange-300">
+          <h2 className="text-8xl md:text-[120px] font-black text-gray-400 leading-none select-none transition-colors duration-500 group-hover:text-green-400">
             {data.year}
           </h2>
           {/* Small stat badge floating over year */}
