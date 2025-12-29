@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import logo from "../assets/logo.png";
 
 const Footer = () => {
     return (
@@ -11,7 +12,7 @@ const Footer = () => {
                     {/* Brand Info */}
                     <div>
                         <img
-                            src="/src/assets/round_tummy_hospitality_logo_transparent_hd.png"
+                            src={logo}
                             alt="Round Tummy Logo"
                             style={{ height: '100px', width: 'auto', marginBottom: '1rem', filter: 'brightness(0) invert(1)', transform: 'translateY(-10px)' }}
                         />
