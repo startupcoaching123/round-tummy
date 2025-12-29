@@ -89,9 +89,15 @@ const Navbar = () => {
               )}
             </Link>
           ))}
-          <Link to="/contact" className="btn btn-primary">
+          <a 
+            href="https://wa.me/919958579259" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+            style={{ textDecoration: 'none' }}
+          >
             Get in Touch
-          </Link>
+          </a>
         </div>
 
         {/* Mobile Toggle */}
@@ -143,18 +149,21 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Link 
-            to="/contact" 
+          <a 
+            href="https://wa.me/919958579259" 
+            target="_blank" 
+            rel="noopener noreferrer"
             className="btn btn-primary" 
             onClick={() => setIsOpen(false)}
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(-20px)',
               opacity: isOpen ? 1 : 0,
-              transition: `all 0.3s ease-in-out ${navLinks.length * 0.1}s`
+              transition: `all 0.3s ease-in-out ${navLinks.length * 0.1}s`,
+              textDecoration: 'none'
             }}
           >
             Get in Touch
-          </Link>
+          </a>
         </div>
 
       <style>{`

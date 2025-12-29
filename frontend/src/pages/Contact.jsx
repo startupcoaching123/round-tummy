@@ -173,7 +173,7 @@ const ContactSection = () => {
                 <ContactCard 
                   icon={Phone} 
                   title="Call Us" 
-                  info="+91 98765 43210" 
+                  info="+91 99585 79259" 
                   subInfo="Mon-Fri from 9am to 6pm"
                   color="text-orange-500"
                   bgColor="bg-orange-50"
@@ -181,7 +181,7 @@ const ContactSection = () => {
                 <ContactCard 
                   icon={Mail} 
                   title="Email Us" 
-                  info="hello@roundtummy.com" 
+                  info="hi@roundtummyhospitality.com" 
                   subInfo="For corporate inquiries & feedback"
                   color="text-green-600"
                   bgColor="bg-green-50"
@@ -189,8 +189,8 @@ const ContactSection = () => {
                 <ContactCard 
                   icon={MapPin} 
                   title="Visit Us" 
-                  info="Sector 44, Gurgaon" 
-                  subInfo="Haryana, India - 122003"
+                  info="Vipul Square, Sushant Lok 1, Gurgaon" 
+                  subInfo="Haryana, India - 122009"
                   color="text-blue-500"
                   bgColor="bg-blue-50"
                 />
@@ -320,7 +320,7 @@ const ContactSection = () => {
       {/* ================= 3. MAP SECTION ================= */}
       <section className="h-96 rounded-4xl w-full relative overflow-hidden">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.741447835!2d77.0716!3d28.4595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19d582e3888f%3A0x2c5d5b5b5b5b5b5b!2sSector%2044%2C%20Gurgaon%2C%20Haryana%20122003!5e0!3m2!1sen!2sin!4v1234567890!5m2!1sen!2sin"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.498588516229!2d77.079039!3d28.464527699999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d18e787f98d13%3A0xa4a14c4cccf7c450!2sVipul%20Square!5e0!3m2!1sen!2sin!4v1767012125505!5m2!1sen!2sin"
           width="100%"
           height="100%"
           style={{ border: 0 }}
