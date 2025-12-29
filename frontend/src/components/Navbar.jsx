@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
+import logo from "../assets/logo.png";
+
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -51,7 +54,7 @@ const Navbar = () => {
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Link to="/" style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', }}>
           <img 
-            src="/src/assets/round_tummy_hospitality_logo_transparent_hd.png" 
+            src={logo}
             alt="Round Tummy Logo" 
             style={{ height: '80px', width: 'auto' }}
           />
