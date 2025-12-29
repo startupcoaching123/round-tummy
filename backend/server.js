@@ -8,7 +8,28 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5000",
+  "https://roundtummyhospitality.com",
+  "https://api.roundtummyhospitality.com",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // mobile apps / curl
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("CORS not allowed"), false);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // Create a Nodemailer transporter using SMTP
@@ -64,14 +85,10 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'OK', message: 'Server is running' });
-});
-
+app.get('/', (req, res) => {
+  res.send("Backend is working fine");
+})
 // Start the server
-connectDB().then(() => {
-  server.listen(PORT, () => { // Use server.listen instead of app.listen
-    console.log(`🚀 Server running on port ${process.env.BACKEND_URL}`);
-  });
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
