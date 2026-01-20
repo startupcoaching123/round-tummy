@@ -3,30 +3,33 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-import hotspot from "../assets/hotspot.png";
 import rsmLogo from "../assets/rsm.png";
 import greatLearningLogo from "../assets/great.png";
 import spinnyLogo from "../assets/spinny.png";
 import grantThorntonLogo from "../assets/grant.png";
 import collegeDekhoLogo from "../assets/college.png";
 import wtwLogo from "../assets/wtw.png";
-import veerji from "../assets/veerji.png";
 
 const Clients = () => {
 
   const clients = [
-    { name: "Hotspot", logo: hotspot },
     { name: "RSM", logo: rsmLogo },
     { name: "Great Learning", logo: greatLearningLogo },
     { name: "Spinny", logo: spinnyLogo },
     { name: "Grant Thornton", logo: grantThorntonLogo },
     { name: "CollegeDekho", logo: collegeDekhoLogo },
     { name: "Willis Towers Watson", logo: wtwLogo },
-    { name: "Veerji", logo: veerji }
   ];
 
-   return (
-    <section id="clients" style={{ padding: "3rem 1rem" }}>
+  return (
+    <section
+      id="clients"
+      style={{
+        padding: "3rem 1rem",
+        background: "transparent"
+      }}
+    >
+
       <h2
         style={{
           textAlign: "center",
