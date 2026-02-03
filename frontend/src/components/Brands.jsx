@@ -1,4 +1,4 @@
-import React from "react";
+import { FiExternalLink } from "react-icons/fi";
 
 // Brand logos
 import veerji from "../assets/veerji.png";
@@ -16,6 +16,7 @@ const Brands = () => {
             features: ["Quick food", "Fresh meals", "Friendly pricing"],
             logo: hotspot,
             color: "#FF9800",
+            link: "https://hotspot.cafe",
         },
         {
             id: 2,
@@ -25,6 +26,7 @@ const Brands = () => {
             features: ["10-minute service", "Available on Zomato/Swiggy"],
             logo: fud,
             color: "#E91E63",
+            link: "https://cafefud.com",
         },
         {
             id: 3,
@@ -35,6 +37,7 @@ const Brands = () => {
             features: [],
             logo: veerji,
             color: "#F44336",
+            link: null, // no redirect
         },
         {
             id: 4,
@@ -44,8 +47,10 @@ const Brands = () => {
             features: ["Indian", "Continental", "Oriental"],
             logo: rtLogo,
             color: "#9C27B0",
+            link: "https://roundtummyhospitality.com/",
         },
     ];
+
 
     return (
         <section id="brands" className="bg-white py-12 sm:py-16">
@@ -68,8 +73,20 @@ const Brands = () => {
                     {brands.map((brand) => (
                         <div
                             key={brand.id}
-                            className="group relative bg-white rounded-2xl border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                            onClick={() => brand.link && window.open(brand.link, "_blank")}
+                            className={`group relative bg-white rounded-2xl border border-gray-100 shadow-lg 
+    transition-all duration-300 overflow-hidden
+    ${brand.link ? "cursor-pointer hover:shadow-2xl hover:-translate-y-2" : "cursor-default"}`}
                         >
+
+                            {brand.link && (
+                                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition duration-300">
+                                    <div className="p-2 rounded-full bg-white shadow-md">
+                                        <FiExternalLink size={18} />
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="p-6">
                                 {/* Logo */}
                                 <div
